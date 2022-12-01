@@ -1,0 +1,23 @@
+{
+  "name": "slm-assignment-1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js",
+    "start_dev": "nodemon --inspect ./app.js"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.7.0",
+    "dotenv": "^16.0.3",
+    "express": "~4.16.1",
+    "express-json-validator-middleware": "^3.0.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "prisma": "^4.7.0"
+  }
+}

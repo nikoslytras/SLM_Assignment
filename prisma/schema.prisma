@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model packages {
+  voucher          String            @id @unique @db.VarChar
+  postcode         String            @db.VarChar
+  scanned_packages scanned_packages?
+}
+
+model drivers {
+  name             String            @id @unique @db.VarChar
+  cluster_rel      clusters          @relation(fields: [cluster], references: [id])
+  cluster          String            @unique @db.VarChar
+  scanned_packages scanned_packages[]
+}
+
+model clusters {
+  id        String   @id @unique @db.VarChar
+  postcodes String   @unique @db.VarChar
+  drivers   drivers?
+}
+
+model scanned_packages {
+  package    packages @relation(fields: [voucher], references: [voucher])
+  voucher    String   @unique
+  driver     drivers  @relation(fields: [pickedUpBy], references: [name])
+  pickedUpBy String  
+}
