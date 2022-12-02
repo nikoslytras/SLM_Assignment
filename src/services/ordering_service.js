@@ -13,7 +13,7 @@ module.exports = class Ordering_service {
       }
     });
 
-    let drivers_and_vouchers = [];
+    let drivers_and_packages = [];
 
     for (const driver of drivers) {
       const packages = await db.packages.findMany({
@@ -24,14 +24,14 @@ module.exports = class Ordering_service {
         }
       });
 
-      drivers_and_vouchers.push({
+      drivers_and_packages.push({
         driver: driver.name,
         cluster: driver.cluster_rel.cluster,
         packages
       });
     }
 
-    return drivers_and_vouchers;
+    return drivers_and_packages;
   }
   //returns the driver status the packages has get and the packages thats remaining to get.
   async get_drivers_status() {
@@ -44,7 +44,7 @@ module.exports = class Ordering_service {
       }
     });
 
-    let drivers_and_vouchers = [];
+    let drivers_and_packages = [];
 
     for (const driver of drivers) {
       const packages_to_pick_up = await db.packages.findMany({
@@ -56,7 +56,7 @@ module.exports = class Ordering_service {
         }
       });
 
-      drivers_and_vouchers.push({
+      drivers_and_packages.push({
         driver: driver.name,
         driver_status: !packages_to_pick_up.length ? DRIVER_STATUS.READY : DRIVER_STATUS.NOT_READY,
         cluster: driver.cluster_rel.cluster,
@@ -65,6 +65,6 @@ module.exports = class Ordering_service {
       });
     }
 
-    return drivers_and_vouchers;
+    return drivers_and_packages;
   }
 }
