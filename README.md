@@ -1,7 +1,7 @@
 # slm_assignment Nikos Lytras
 ## Hello there, weclome to my solution
 **Here you can find information for how to run the server.**
-The first step to run the server is to have a local (or remote) instance of postgres db, for convenience (yours and mine) i added a docker-compose file that contains exactly that. You can start the container by ``cd`` inside the project and ***run the command***: ``docker-compose up -d`` **NOTE:** the docker should be installed on your computer for this to work, If you don't have the docker i'm sure that you will find your postgres instance from somewhere else.
+The first step to run the server is to have a local (or remote) instance of postgres db, for convenience (yours and mine) i added a docker-compose file that contains exactly that. You can start the container by ``cd`` inside the project and ***run the command***: ``docker-compose up -d``.
 
 Ok nice so by now we should have a postgres instance up and running. 
 
