@@ -3,9 +3,11 @@ const express = require('express');
 const logger = require('morgan');
 const port = process.env.PORT || 8000;
 const indexRouter = require('./routes/index');
-const {ValidationError} = require("express-json-validator-middleware");
+const { ValidationError } = require("express-json-validator-middleware");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require("../docs/swagger.json");
 const app = express();
-
+const { CLUSTER_MODE } = require("./constants");
 
 const cluster = require("cluster");
 const os = require("os");
@@ -14,9 +16,9 @@ startMaster().catch((error) => {
   console.info(error.message);
 });
 
-
+//this function starts the master of forks multiple workers
 async function startMaster() {
-  if (process.env.CLUSTER_MODE === true && cluster.isMaster) {
+  if (process.env.SERVER_MODE === CLUSTER_MODE && cluster.isMaster) {
     let cluster_nodes = process.env.CLUSTER_NODES || os.cpus().length;
 
     console.info("Master " + process.pid + " is running. Starting " + cluster_nodes + " workers");
@@ -43,16 +45,20 @@ async function startMaster() {
   }
 }
 
+//this function starts the worker
 async function startWorker() {
   try {
     app.use(logger('dev'));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
 
+    //set the base router
     app.use('/', indexRouter);
+    //se the swagger url.
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    // catch 404 and forward to error handler
-    app.use(function (req, res, next) {
+    // catch 404 errors
+    app.use(function (_, res, next) {
       res.send({
         code: 404,
         message: "not found"
@@ -62,9 +68,6 @@ async function startWorker() {
 
     // error handler
     app.use(function (err, req, res, next) {
-      // set locals, only providing error in development
-      res.locals.message = err.message;
-      res.locals.error = req.app.get('env') === 'development' ? err : {};
       //check if is a validation error
       if (err instanceof ValidationError) {
         res.status(400).send({
@@ -82,13 +85,12 @@ async function startWorker() {
         message: "internal error",
         error: err.message
       });
-      next();
     });
 
+    //start listening for requests.
     app.listen(port, () => {
       console.info(`Starting server at port: ${port}`)
     });
-
 
   } catch (error) {
     console.info("Worker error = ", error.stack);

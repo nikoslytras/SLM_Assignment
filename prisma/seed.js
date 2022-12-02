@@ -1,19 +1,16 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-const { insertClusters, insertDrivers, insertPackage } = require("../test_data");
+const Reset_service = require("../src/services/reset_service");
+const reset_service = new Reset_service();
 
 async function main() {
-    await insertPackage(prisma);
-    await insertClusters(prisma);
-    await insertDrivers(prisma);
+    await reset_service.reset();
 }
 
 main()
     .then(async () => {
-        await prisma.$disconnect()
+        await reset_service.db.$disconnect()
     })
     .catch(async (e) => {
         console.error(e)
-        await prisma.$disconnect()
+        await reset_service.db.$disconnect()
         process.exit(1)
     });

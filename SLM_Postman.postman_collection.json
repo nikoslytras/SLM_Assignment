@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "db49e26d-a08a-4de9-a120-63e0d17d6df6",
+		"name": "SLM_Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19501351"
+	},
+	"item": [
+		{
+			"name": "Reset State",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/reset",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order drivers and packages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/order",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get api doc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api-docs",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get drivers and packages status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/status",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scan a package",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"voucher\": \"A1A\",\r\n    \"pickedUpBy\": \"Moe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/scan",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"scan"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

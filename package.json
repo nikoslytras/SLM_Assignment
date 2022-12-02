@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app.js",
-    "start_dev": "nodemon --inspect ./app.js"
+    "start": "node ./src/app.js",
+    "dev": "nodemon --inspect ./src/app.js"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
@@ -14,7 +14,8 @@
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "express-json-validator-middleware": "^3.0.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
